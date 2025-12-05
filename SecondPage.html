@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Famous artwork</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+      color: white;
+      background-image: url('second/blue3.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      cursor: url('second/flower.png?v=1'), auto;
+      transition: border 0.3s ease, background-image 0.3s ease;
+    }
+
+    body.hovered {
+      border: 15px solid rgb(255, 69, 0); /* 悬停时添加橙色粗边框 */
+      background: radial-gradient(circle, yellow 10%, transparent 10%) repeat, /* 多个黄色圆圈图案 */
+                  url('second/green3.jpg'); /* 更改背景图片 */
+      background-size: 50px 50px, cover; /* 调整圆圈图案的大小和背景图片 */
+    } 
+
+    body::before {
+      content: 'HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? HOW CAN HUMANITY LIVE IN THE FUTURE? ';
+      position: fixed;
+      font-family: 'Times New Roman', Times, serif;
+      top: 0;
+      left: 10;
+      width: 800;
+      height: 100%;
+      color: rgba(173, 216, 230, 0.3); /* 浅蓝色，带透明度 */
+      font-size: 100px;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    body, .content, header, .year, #green1, #green2, #blue2, #unreal-estate, .text-overlay, .text-description {
+  opacity: 0; /* 初始状态为透明 */
+  transition: opacity 2s ease-in-out; /* 渐变过渡效果 */
+}
+
+    header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 10;
+  overflow: visible;
+  transform-origin: center top;
+  transition: transform 0.5s ease, letter-spacing 0.5s ease, color 0.5s ease;
+}
+
+header:hover {
+  transform: scale(1.3) rotate(5deg);
+  letter-spacing: 10px;
+  color: rgb(255, 0, 144); /* 橙红色 */
+}
+
+
+
+    .year {
+  position: fixed;
+  top: 40%;
+  left: 20%;
+  font-size:5em;
+  color: rgb(82, 0, 154);
+  transition: transform 0.3s ease, border-top 0.3s ease;
+}
+
+.year:hover {
+  transform: scale(2.2);
+  border-top: 10px solid rgb(255, 157, 255);
+}
+
+
+    .content {
+      max-width: 800px;
+      margin: 100px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+    }
+
+    .content h1 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: rgb(153, 50, 166);
+      background-color: rgb(24, 87, 206);
+    }
+
+    .content p {
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .content .description {
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    @keyframes randomSize {
+  0%, 100% {
+    font-size: 16px;
+    font-weight: normal;
+  }
+  25% {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  50% {
+    font-size: 20px;
+    font-weight: 800;
+  }
+  75% {
+    font-size: 22px;
+    font-weight: normal;
+  }
+}
+
+.bottom-text {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-top: 40px;
+  animation: randomSize 3s infinite alternate ease-in-out;
+}
+ 
+    #green1 {
+  position: fixed;
+  bottom: 10%;
+  left: 5%;
+  width: 200px;
+  transition: transform 0.5s ease-in-out;
+  z-index: 9;
+}
+
+#green1:hover {
+  transform: scale(1.3) rotate(360deg);
+  transition: transform 0.2s ease-in-out;
+}
+
+#green2 {
+  position: fixed;
+  top: 30%;
+  right: 5%;
+  width: 400px;
+  transition: transform 0.5s ease-in-out;
+  z-index: 9;
+  
+}
+
+#green2:hover {
+  transform: scale(1.2) rotate(-10deg);
+}
+
+#glass-landscapes {
+  position: fixed;
+  top: 28%;
+  right: 5%;
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  color: rgba(255, 255, 255, 0); /* 初始状态透明 */
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  transition: color 0.5s ease-in-out, transform 0.5s ease-in-out;
+  z-index: 8;
+}
+
+#green2:hover + #glass-landscapes {
+  color: rgba(173, 216, 230, 1); /* 淡蓝色 */
+  transform: translateY(500px); /* 鼠标悬停时文字上移 */
+  top: 20%;
+  font: 7em;
+  font-weight: 800;
+}
+
+#blue2 {
+    position: fixed;
+      top: 70%;
+      left: 50%;
+      width: 20em;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      transition: background-color 0.3s ease, cursor 0.3s ease;  /* 添加过渡效果 */
+}
+
+#blue2:hover {
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10%), 
+              radial-gradient(circle, rgba(255,255,255,0.3) 20%, transparent 20%);
+  background-size: 30px 30px; /* 圆形图案大小 */
+  background-position: center; /* 图案位置 */
+  transform: translate(-50%, -50%) translateY(-10px); /* 移动图片 */
+  filter: invert(1); /* 添加反差色效果 */
+}
+
+#back-link {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    padding: 15px 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(24, 87, 206); /* 背景颜色 */
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000; /* 确保它在其他元素之上 */
+  }
+
+  #back-link:hover {
+    background-color: rgb(153, 50, 166); /* 悬停时的背景颜色 */
+    transform: scale(1.1); /* 悬停时放大效果 */
+  }
+
+  
+  #unreal-estate {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  width: 700px;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 80%;
+}
+
+#unreal-estate:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 100%;
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  background-color: rgba(255, 255, 255, 0.7); /* 白色半透明背景 */
+  color: black;
+  font-size: 50px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 12;
+  text-align: center;
+}
+
+.text-description {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(255, 255, 255, 0.7); /* 白色半透明背景 */
+  color: black;
+  font-size:30px;
+  font-weight: 700;
+  padding: 15px 25px;
+  border-radius: 5px;
+  z-index: 12;
+  text-align: center;
+  max-width: 800px;
+}
+
+#u2 {
+  position: absolute;
+  top: 170%;
+  left: 30%;
+  width: 1000px; /* 调整为与其他图片一致的大小 */
+  transform: translate(-50%, -50%);
+  z-index: 13;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 98%;
+}
+
+#u3 {
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  width: 1000px; /* 调整为与其他图片一致的大小 */
+  transform: translate(-50%, -50%);
+  z-index: 13;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 98%;
+}
+
+#u4 {
+  position: absolute;
+  top: 230%;
+  left: 20%;
+  width: 1000px; /* 调整为与其他图片一致的大小 */
+  transform: translate(-50%, -50%);
+  z-index: 13;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 98%;
+}
+#u5 {
+  position: absolute;
+  top: 250%;
+  left: 50%;
+  width: 1000px; /* 调整为与其他图片一致的大小 */
+  transform: translate(-50%, -50%);
+  z-index: 13;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 98%;
+}
+
+#u6 {
+  position: absolute;
+  top: 320%;
+  right: -10%;
+  width: 600px;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  opacity: 80%;
+}
+#u6:hover {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 100%;
+}
+
+.text-overlay2 {
+  position: absolute;
+  top: 300%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  background-color: rgba(255, 255, 255, 0.7); /* 白色半透明背景 */
+  color: black;
+  font-size: 50px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 12;
+  text-align: center;
+}
+
+.text-description2 {
+  position: absolute;
+  top: 350%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(255, 255, 255, 0.7); /* 白色半透明背景 */
+  color: black;
+  font-size:30px;
+  font-weight: 700;
+  padding: 15px 25px;
+  border-radius: 5px;
+  z-index: 12;
+  text-align: center;
+  max-width: 800px;
+}
+  </style>
+</head>
+<body>
+  <header>
+    HOW CAN HUMANITY LIVE IN THE FUTURE?
+  </header>
+
+  <div class="content">
+    <h1 id="title">
+        Welcome to the future
+      </h1>      
+    <p class="description">
+      <span id="dear">A lot of discussion around your work focuses on the role of technology within it—but are we perhaps overlooking how these are highly emotional narratives suffused with longing, shuttling between alienation and belonging?</span><br>
+      A lot of work about AI abstracts technological phenomena and separates them from lived experience. But I have strong personal associations with technological objects, technology doesn’t exist separately from my attachment to it. I feel similarly about architecture. Across Southeast Asia, the tides of national or social change are all intertwined with architecture and design. It’s hard for me to disentangle my childhood memories of these places from actually seeing these buildings go up. What I’m creating isn’t just a critique of technology. It’s a critique intertwined with an engagement with the same subject.
+     </p>
+    <div class="year" id="goingtobed">2024</div>
+    
+ 
+    <div class="bottom-text">
+      Within academia and the tech industry, there’s no such thing as a cohesive ‘artificial intelligence,’ but AI is still mythologized in Hollywood movies and sci-fi narratives as a sentient yet ‘othered’ non-human being. In your essay film Sinofuturism (1839-2046 AD) (2016), you use clips from British, American, and Chinese state media to piece together a proposition that Chinese workers are automatons poised to take over the world. Are you relating the conversation around AI to that of racialized labor?
+
+LL: Take Singapore and Hong Kong. Both are successful because they’re interzone port cities. Their main value is being in the middle of things. Conventionally, having some kind of natural resource has been a catalyst for development. But in the case of Hong Kong and Singapore, this in-between status is profitable. It’s conducive to the import and export of goods, services, and people. There’s a whole spectrum of related questions about labor in relation to colonialism and globalization.How it relates to AI is very different. I’m not talking about how AI is developed in industry and academia, I’m talking about the notion of AI and autonomous work as a source of abundant knowledge production and mechanical labor. Look at ports. Dockyard workers in Singapore, HK, and so on, used to be the main source of casual day labor at the harbor. But sea freight ports are increasingly automated. In Rotterdam, they’ve built a fully automated part of the port where there’s no human work except for in the control room. Flows of people, processes, knowledge, and work, in relation to the global circulation of goods, have always been a part of these seafaring areas. Here, AI is part of automating the processes of how harbors are working, how infrastructure is developing.In Sinofuturism, AI is disenfranchised and nonhuman, but it also has a capacity for providing such a surplus of knowledge and mechanical work that people feel threatened by their obsolescence. Contrast this with the case of Malaysia, where the British imported people from the Empire to work in specific industries. People from Southern India worked in the rubber plantations, the Southern Chinese worked in the tin mines. Specializations arose from how the colonialists defined the suitability of people to roles. In terms of the Chinese diaspora, this happened differently to how it occurred in the Caribbean, in Americas, and in Southeast Asia. These were things I was looking at in Sinofuturism—which, in the case of the opium trade, is much more complicated than being just about exporting and importing labor.
+
+AQ: Why does science fiction feel like such an intuitive way into processing colonial realities?
+
+LL: Science fiction is an amazing resource for conceiving of things differently, but it’s important to remember many of today’s celebrated writers—like Ursula Le Guin, Samuel Delany, Octavia Butler, Philip K. Dick, Liu Cixin—are outliers in terms of science fiction. So much of the genre is imperial space colonization, or conquest of the alien. The writers who are disproportionately focused on, in terms of futurism and critiquing capitalism, gender politics, or colonial relations don’t represent the majority of science fiction. Fredric Jameson, in Archaeologies of the Future (2005), sketches out many interesting threads to do with utopian fictions that could also be seen as science fictions; ideal societies from Thomas More’s Utopia and Plato’s Republic to Russian science fiction authors of the 1920s. These writers were trying to create prototypes for social change.
+
+AQ: Is there an analogue between world-building and nation-building?
+
+LL: The first time I came across world-building was in science fiction: finding books with maps in the beginning, and encountering ideas of imagined places. Now, world-building is associated with video games, literature, or even the Marvel cinematic universe.It’s rare to see the process of nation-building as explicitly as you do in Singapore. I moved there from Hong Kong when I was 7. [The Singaporean government] is really overt about social engineering. I really felt that these nations were in the process of creating themselves in real-time. I had no sense of complex geopolitical or social history. In school, Singaporean history started when it became a British East India Company trading outpost.As a kid, Hong Kong and Singapore seemed as fictional as the books I read or the video games I played. At the time, I remember that the prevailing mood in Hong Kong was of change, even though it was ten years before the 1997 handover. I remember seeing the Bank of China skyscraper go up; much later, I realized that its construction was related to Hong Kong’s geopolitical situation. But back then, I saw it as a structure from a video game. </div>
+
+<a href="https://en.wikipedia.org/wiki/Old_Summer_Palace" target="_blank">
+    <img id="green1" src="second/green1.png" alt="Green Image 1">
+</a>
+
+
+    <img id="green2" src="second/green2.png" alt="Green Image 2">
+    <div id="glass-landscapes">Lawrence Lek: Nepenthe </div>
+    <img id="blue2" src="second/blue2.png" alt="Blue Image 2">
+    <img src="second/flower.png" alt="Test Image">
+    <div class="text-overlay">Unreal Estate</div>
+<div class="text-description">Unreal Estate (The Royal Academy is Yours) forms Chapter 9 of Lawrence Lek's Bonus Levels (2013-2016), a series of site-specific video games based on alternate versions of real places. Conceived as a virtual novel, Lek uses simulation as a medium to assemble collages of objects and places drawn from reality. The project is usually presented as a double-screen installation with video game and narrative walkthrough video displayed side-by-side.</div>
+
+<div class="text-overlay2">Nepenthe (Summer Palace Ruins)</div>
+<div class="text-description2">‘Nepenthe’ is an ongoing series of site-specific video games that explore themes of memory and identity in virtual worlds. Named after the fictional medicine for sorrow from Greek mythology, the installation was first realised at the 2021 Ljubljana Biennale within an ambient chill-out club environment. The meta-fictional installation creates an atmosphere of uncanny healing and escapism that suits our current age, while imagining a future of total automated entertainment. The installation includes a new soundtrack with original music – ambient, emotional, and melodic but with dark undercurrents. Evoking environmental music designed to operate almost subconsciously, the soundtrack incorporates sounds (synthesized and sampled) that signify how technology can enable future ‘cultures of wellness’ and ‘healing’ lifestyle design.</div>
+
+
+    <a href="index.html" id="back-link">Back</a>
+
+    <a href="https://vimeo.com/126810568" target="_blank">
+      <img id="unreal-estate" src="second/Unreal Estate.png" alt="Unreal Estate">
+    </a>
+
+    <img id="u2" src="second/u2.png" alt="U2">
+    <img id="u3" src="second/u3.png" alt="U3">
+    <img id="u4" src="second/u4.png" alt="U4">
+    <img id="u5" src="second/u5.png" alt="U5">
+
+    <a href="https://www.lawrencelek.com/works/nepenthe" target="_blank">
+    <img id="u6" src="second/u6.png" alt="U6">
+    </a>
+
+
+
+   <script>
+
+window.addEventListener('load', function() {
+  document.body.style.opacity = 1;
+  document.querySelectorAll('.content, header, .year, #green1, #green2, #blue2, #unreal-estate, .text-overlay, .text-description')
+    .forEach(function(element) {
+      element.style.opacity = 1;
+    });
+});
+
+
+
+    document.getElementById('blue2').addEventListener('mouseover', function() {
+      document.body.style.backgroundImage = "url('second/green3.jpg')";
+    });
+
+    document.getElementById('blue2').addEventListener('mouseout', function() {
+      document.body.style.backgroundImage = "url('second/blue3.jpg')";
+    });
+
+    document.getElementById('blue2').addEventListener('mouseover', function() {
+    document.body.classList.add('hovered');
+  });
+
+  document.getElementById('blue2').addEventListener('mouseout', function() {
+    document.body.classList.remove('hovered');
+  });
+
+
+
+
+  </script>
+
+</body>
+</html>

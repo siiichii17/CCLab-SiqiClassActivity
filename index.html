@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siqi- research artist Lawrence Lek</title>
+
+
+    <style>
+       body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 隐藏垂直滚动条 */
+    background: ; /* 背景图像设置 */
+    background-size: cover; /* 背景图像适应屏幕大小 */
+    background-color: rgba(255, 255, 255, 0.7); /* 半透明白色背景 */
+    background-image:url(bg.jpg) ;
+    background-blend-mode: lighten; /* 叠加模式 */
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: flex-start;
+    color: #333;
+    position: relative;
+    height: 100vh; /* 设置页面高度为100%视口高度 */
+    box-sizing: border-box;
+    border: 15px solid transparent; /* 边框基础 */
+    border-image: linear-gradient(45deg, #000000, #4c4c4c, #9d9d9d) 1; /* 渐变边框 */
+}
+
+
+        .title-container {
+            position: absolute; 
+            top: 20px; /* Start near the top */
+            left: 20px; /* Position near the left */
+            z-index: 200;
+            text-align: left;
+        }
+
+        .title-container h1 {
+            font-size: 9em; /* Font size */
+            margin: 0;
+            line-height: 1.1;
+            font-weight: bold;
+            white-space: nowrap;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: -15px; /* Tighten letter spacing */
+            transform: scale(1); /* Normal scale */
+            transform-origin: left center;
+        }
+
+        .trail {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: fadeOut 1s ease-out forwards, colorChange 1s ease-out forwards;
+    background-color: #ffb3ba;
+    z-index: 1000; /* 确保 trail 在页面最顶层 */
+}
+
+        @keyframes fadeOut {
+            from {
+                opacity: 0.7;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: #e8838d;
+            }
+            25% {
+                background-color: #ffb3ba;
+            }
+            50% {
+                background-color: #ffdfba;
+            }
+            75% {
+                background-color: #baffc9;
+            }
+            100% {
+                background-color: #bae1ff;
+            }
+        }
+
+    .highlight {
+    background: linear-gradient(90deg, #8e94ab, #647da4, #184289); /* Gradient color */
+    background-clip: text;
+    -webkit-background-clip: text; /* For WebKit browsers */
+    color: transparent;
+    transition: background 0.3s;
+}
+
+
+        .image-container {
+            position: relative;
+            width: 100%; /* 确保容器占据整个宽度 */
+            height: 100%; /* 确保容器占据整个高度 */
+            z-index: 100; /* 保证图片位于正确的层级 */
+        }
+
+        @keyframes drop {
+    0% {
+        transform: translateY(-1000px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.image-container img {
+    position: absolute;
+    max-width: 100%; /* 确保图片等比缩放 */
+    height: auto; /* 保持纵横比 */
+    opacity: 0; /* 初始透明 */
+    transition: transform 0.3s ease; /* 添加平滑移动效果 */
+}
+.image-container img:hover {
+    filter: blur(5px); /* 鼠标悬停时图片变模糊 */
+    cursor: pointer; /* 鼠标悬停时变成手形指针 */
+}
+
+
+
+
+.image-container img:nth-child(1) {
+    right: 30px;
+    top: 40px;
+    width: 350px; /* 调整大小 */
+    animation: drop 1s ease-out forwards;
+}
+
+
+body.dark-mode-f1 {
+    background-color: #00008b; /* 深蓝色背景 */
+    color: white; /* 所有文本变为白色以提供对比 */
+}
+
+
+body.dark-mode-f2 {
+    background-color: #ff5c82; 
+    color: rgba(170, 241, 255, 0.599); 
+}
+
+body.dark-mode-f3 {
+    background-color: #00655d; /* 深绿色 */
+    color: rgba(255, 255, 68, 0.579); 
+}
+
+body.dark-mode-f4 {
+    background-color: #ffe100; /* 紫色 */
+    color: rgb(122, 0, 0); 
+}
+
+body.dark-mode-f5 {
+    background-color: #86e9ff88; /* 深灰色 */
+    color: white; 
+}
+
+body.dark-mode-f6 {
+    background-color: #ff8c00; /* 橙色 */
+    color: white; 
+}
+
+.info-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.784); /* 半透明白色背景 */
+    color: #000;
+    font-size: 2vw;
+    line-height: 1.6;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 800;
+}
+
+.info-box.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.overlay-text {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: none;
+    z-index: 1;
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.715);
+    text-align: center;
+    white-space: pre-wrap;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body.dark-mode-f1 #happy-overlay-f1,
+body.dark-mode-f2 #happy-overlay-f2,
+body.dark-mode-f3 #happy-overlay-f3,
+body.dark-mode-f4 #happy-overlay-f4,
+body.dark-mode-f5 #happy-overlay-f5,
+body.dark-mode-f6 #happy-overlay-f6 {
+    display: block;
+}
+
+
+
+.image-container img:nth-child(2) {
+    left: 20px;
+    bottom: 20px;
+    width: 270px; /* 调整大小 */
+    rotate: 330deg;
+    animation: drop 1.5s ease-out forwards;
+}
+
+.image-container img:nth-child(3) {
+    left: 270px;
+    bottom: 90px;
+    width: 400px; /* 调整大小 */
+    animation: drop 2s ease-out forwards;
+}
+
+.image-container img:nth-child(4) {
+    left: 560px;
+    bottom: 10px;
+    width: 300px; /* 调整大小 */
+    rotate: 20deg;
+    z-index: 1;
+    animation: drop 2.5s ease-out forwards;
+}
+
+.image-container img:nth-child(5) {
+    right: 300px;
+    bottom: 20px;
+    width: 400px; /* 调整大小 */
+    rotate: 20deg;
+    animation: drop 3s ease-out forwards;
+}
+
+.image-container img:nth-child(6) {
+    right: 20px;
+    bottom: 30px;
+    width: 400px; /* 调整大小 */
+    rotate: 340deg;
+    z-index: -1;
+    animation: drop 3.5s ease-out forwards;
+}
+
+.enter-container {
+    position: absolute;
+    bottom: 20px; /* 距离页面底部的距离 */
+    left: 50%;
+    transform: translateX(-50%); /* 水平居中 */
+    z-index: 300; /* 确保链接位于顶层 */
+}
+
+.enter-button {
+    display: block;
+    width: 400px; /* 设置按钮宽度 */
+    height: 50px; /* 设置按钮高度 */
+    background-color: #9d9dff; /* 蓝色背景 */
+    color: white; /* 文本颜色 */
+    text-align: center; /* 文本居中 */
+    line-height: 50px; /* 使文本垂直居中 */
+    text-decoration: none; /* 去除链接下划线 */
+    border-radius: 8px; /* 添加圆角 */
+    font-size: 24px; /* 设置字体大小 */
+    font-weight: bold; /* 加粗字体 */
+    cursor: pointer; /* 鼠标指针 */
+}
+
+
+.title-container, .image-container img, .enter-container {
+    opacity: 0; /* 初始状态完全透明 */
+    animation: fadeIn 2s ease-out forwards; /* 渐显动画 */
+}
+
+/* 渐显动画 */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.title-container {
+    animation-delay: 1s; /* 1秒后开始渐显 */
+}
+
+.image-container img:nth-child(1) {
+    animation-delay: 2s; /* 第一张图片2秒后开始渐显 */
+}
+
+.image-container img:nth-child(2) {
+    animation-delay: 0.5s; /* 第二张图片2.5秒后开始渐显 */
+}
+
+.image-container img:nth-child(3) {
+    animation-delay: 0.5s; /* 第三张图片3秒后开始渐显 */
+}
+
+.image-container img:nth-child(4) {
+    animation-delay: 1.5s; /* 第四张图片3.5秒后开始渐显 */
+}
+
+.image-container img:nth-child(5) {
+    animation-delay: 2s; /* 第五张图片4秒后开始渐显 */
+}
+
+.image-container img:nth-child(6) {
+    animation-delay: 3.5s; /* 第六张图片4.5秒后开始渐显 */
+}
+
+.enter-container {
+    animation-delay: 3s; /* Enter按钮5秒后开始渐显 */
+}
+
+
+
+
+
+        
+    </style>
+
+
+</head>
+
+
+
+
+  
+
+<body>
+
+    <div class="title-container">
+        <h1 id="title">Research Artist<br />Lawrence Lek</h1>
+    </div>
+
+    <div class="image-container">
+        <img src="f1.png" alt="Image 1" />
+        <img src="f2.png" alt="Image 2" />
+        <img src="f3.png" alt="Image 3" />
+        <img src="f4.png" alt="Image 4" />
+        <img src="f5.png" alt="Image 5" />
+        <img src="f6.png" alt="Image 6" />
+    </div>
+
+    <div class="enter-container">
+        <a href="SecondPage.html" class="enter-button">Explore Artwork！</a>
+    </div>
+
+    <div id="info-box-f1" class="info-box">
+        <p>Who is he ?</p>
+        <p>Lawrence Lek is a London-based Malaysian Chinese artist who unites video games, filmmaking, and electronic music in a singular cinematic universe. He is best known for his immersive installations that explore spiritual and existential themes through the lens of science fiction. Lek is the winner of the 2024 Frieze Artist award and was named by Time as one of the 100 most influential people working in AI.</p>
+    </div>
+    
+    
+         <div id="info-box-f2" class="info-box">
+        <p>Artistic Background and Education</p>
+        <p>He studied architecture at Trinity College, Cambridge, the Architectural Association and Cooper Union in New York. He is represented by Sadie Coles HQ, London.</p>
+    </div>
+  
+
+
+    <div id="info-box-f3" class="info-box">
+        <p>How does he characterize the media in which he works?</p>
+        <p>“I make site-specific media installations, films, video games, and virtual worlds. Prior to that, I was doing a lot of architectural installations that were driven by this question of what public art might be today. My interest has always been: how do I use all the affordances that my tools give me? That involves a lot of work with music and soundtracks as well.”</p>
+    </div>
+    
+    <div id="info-box-f4" class="info-box">
+        <p>Continue...</p>
+        <p>Lets keep exploring his famous artwork！</p>
+    </div>
+    
+    <div id="info-box-f5" class="info-box">
+        <p>Art Style and Themes</p>
+        <p>Lawrence Lek's work explores contemporary themes such as virtual reality, simulation technology, and artificial intelligence. He often discusses identity, memory, and sociopolitical issues through fictional narratives. His artistic style has futuristic elements and critical reflections on the technological world.</p>
+    </div>
+    
+    <div id="info-box-f6" class="info-box">
+        <p>Technology and creative methods</p>
+        <p>His approach to making art using video game engines, 3D software and soundscapes.</p>
+    </div>
+
+    
+    <div id="happy-overlay-f1" class="overlay-text">Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? Who is he? Who is he? Who is he? Who is he? Who is he?Who is he? </div>
+    <div id="happy-overlay-f2" class="overlay-text">Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background Background  </div>
+    <div id="happy-overlay-f3" class="overlay-text">Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence Lek Lawrence</div>
+    <div id="happy-overlay-f4" class="overlay-text">Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist Artist </div>
+    <div id="happy-overlay-f5" class="overlay-text">video games video games video games video games video games video games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games video games video gamesvideo games video games video games </div>
+    <div id="happy-overlay-f6" class="overlay-text"> Media installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations Media installations Media installations Media installations Media installations Media installations Media installationsMedia installations</div>
+        
+    
+    <script>
+        const titleContainer = document.querySelector('.title-container');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            titleContainer.style.top = `${20 + scrollY}px`;
+        });
+
+        document.addEventListener("mousemove", function(e) {
+            var body = document.querySelector("body");
+            var trail = document.createElement("div");
+
+            trail.className = "trail";
+            trail.style.left = e.pageX + "px";
+            trail.style.top = e.pageY + "px";
+
+            body.appendChild(trail);
+
+            setTimeout(function() {
+                trail.remove();
+            }, 1000); // Adjust the duration the trail stays on the screen
+        });
+
+        const title = document.getElementById('title');
+
+        // 获取 h1 的文本内容，并保留 <br> 标签
+        const titleText = title.innerHTML;
+        title.innerHTML = '';
+
+        // 遍历字符并将每个字符包裹在 <span> 中
+        titleText.split(/(<br\s*\/?>)/).forEach(char => {
+            if (char.match(/<br\s*\/?>/)) {
+                // 如果是 <br> 标签，则直接插入
+                title.innerHTML += char;
+            } else {
+                // 否则将字符包裹在 <span> 中
+                const span = document.createElement('span');
+                span.textContent = char;
+                title.appendChild(span);
+            }
+        });
+
+        const spans = document.querySelectorAll('#title span');
+
+        // 鼠标移动时，检测光标是否在某个字符上方，并改变颜色为渐变色
+        title.addEventListener('mousemove', function(e) {
+            spans.forEach(span => {
+                const rect = span.getBoundingClientRect();
+                if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                    e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                    span.classList.add('highlight');
+                } else {
+                    span.classList.remove('highlight');
+                }
+            });
+        });
+        
+
+//文本1
+const f1Image = document.querySelector('.image-container img:nth-child(1)');
+const f2Image = document.querySelector('.image-container img:nth-child(2)');
+const f3Image = document.querySelector('.image-container img:nth-child(3)');
+const f4Image = document.querySelector('.image-container img:nth-child(4)');
+const f5Image = document.querySelector('.image-container img:nth-child(5)');
+const f6Image = document.querySelector('.image-container img:nth-child(6)');
+
+const body = document.querySelector('body');
+
+const happyOverlayF1 = document.getElementById('happy-overlay-f1');
+const happyOverlayF2 = document.getElementById('happy-overlay-f2');
+const happyOverlayF3 = document.getElementById('happy-overlay-f3');
+const happyOverlayF4 = document.getElementById('happy-overlay-f4');
+const happyOverlayF5 = document.getElementById('happy-overlay-f5');
+const happyOverlayF6 = document.getElementById('happy-overlay-f6');
+
+const infoBoxF1 = document.getElementById('info-box-f1');
+const infoBoxF2 = document.getElementById('info-box-f2');
+const infoBoxF3 = document.getElementById('info-box-f3');
+const infoBoxF4 = document.getElementById('info-box-f4');
+const infoBoxF5 = document.getElementById('info-box-f5');
+const infoBoxF6 = document.getElementById('info-box-f6');
+
+function addHoverEffect(image, infoBox, bodyClass, overlay) {
+    image.addEventListener('mouseenter', () => {
+        infoBox.classList.add('show');
+        body.classList.add(bodyClass);
+        overlay.style.display = 'block';
+    });
+
+    image.addEventListener('mouseleave', () => {
+        infoBox.classList.remove('show');
+        body.classList.remove(bodyClass);
+        overlay.style.display = 'none';
+    });
+}
+
+addHoverEffect(f1Image, infoBoxF1, 'dark-mode-f1', happyOverlayF1);
+addHoverEffect(f2Image, infoBoxF2, 'dark-mode-f2', happyOverlayF2);
+addHoverEffect(f3Image, infoBoxF3, 'dark-mode-f3', happyOverlayF3);
+addHoverEffect(f4Image, infoBoxF4, 'dark-mode-f4', happyOverlayF4);
+addHoverEffect(f5Image, infoBoxF5, 'dark-mode-f5', happyOverlayF5);
+addHoverEffect(f6Image, infoBoxF6, 'dark-mode-f6', happyOverlayF6);
+
+
+    </script>
+</body>
+</html>
